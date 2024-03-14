@@ -45,13 +45,13 @@ for add in data['주소']:
         if rescode == 200:
             response_body = response.read().decode('utf-8')
             response_body = json.loads(response_body)   # json
-            if 'addresses' in response_body:
-                latitude = response_body['addresses'][0]['y']
-                longitude = response_body['addresses'][0]['x']
-            else:
+            if response_body['addresses'] == [] :
                 print("'result' not exist!")
                 latitude = None
                 longitude = None
+            else:
+                latitude = response_body['addresses'][0]['y']
+                longitude = response_body['addresses'][0]['x']
         else:
             print('Response error code : %d' % rescode)
             latitude = None
