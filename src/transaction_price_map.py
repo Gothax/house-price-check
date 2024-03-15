@@ -43,13 +43,8 @@ def price_map():
     st.title('지도로 보는 아파트 실거래가')
     st.write('최근 1년간 발생한 거래의 가격을 볼 수 있습니다.')
     st.write('계약일자 : 2023-04-14 ~ 2024-03-14')
-    csv_file_path = 'data/output_usethis.xlsx'
+    csv_file_path = 'data/output_usethis_2304_2403.xlsx'
     df = read_csv_file(csv_file_path)
-    
-    # 지도 생성, 출력
-    # with st.spinner('지도를 로딩하는 중입니다...'):  # 로딩 중임을 알리는 스피너 메시지
-    #     m = create_map(df)
-    #     folium_static(m)
 
     m = create_map(df)
     folium_static(m, width=800, height=600)

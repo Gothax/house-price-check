@@ -1,14 +1,17 @@
 import streamlit as st
 from home import home
 from transaction_price_map import price_map
+from compare_price import compare_price
+from age_gender import age_gender
+from predict_price import predict_price
 
 def main():
     pages = {
         'Home': home,
-        '아파트 실거래가': price_map,
-        # '페이지 2': page2,
-        # '페이지 3': page3,
-        # '페이지 4': page4
+        '아파트 실거래가(지도)': price_map,
+        '월별 가격 비교': compare_price,
+        '동네별 연령대, 성별 분포': age_gender,
+        '집값예측(Beta)': predict_price
     }
 
     st.sidebar.title('메뉴')
