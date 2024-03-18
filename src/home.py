@@ -24,14 +24,20 @@ def home():
     st.image('data/2.png', caption='이미지 캡션', width=500)
 
 
+    st.write('**상권분석**')
+    st.write('원하는 동네의 상권을 둘러 보세요')
+    st.write('음식, 과학.기술, 부동산, 숙박, 예술.스포츠 등 다양한 상권이 주변에 몇개 분포했는 지 한눈에 볼 수 있어요')
+    st.image('data/3.png', caption='이미지 캡션', width=500)
+
+
     st.write('**동네별 연령대, 성별**')
     st.write('가격, 위치를 봤으니 동네 주민이 어떤 사람인가 확인해 보세요!')
+    st.image('data/4.png', caption='이미지 캡션', width=500)
     st.write('')
 
 
     st.write('**집값 예측 (Beta)**')
-    st.write('위의 모든 지표 그리고 저만의 지표를 이용해 언제 집을 사는게 좋을지, 나중에 집값이 어떻게 변할 지 예측해 드릴게요!')
+    st.write('위의 모든 지표 그리고 저만의 지표를 이용해 집값이 어떻게 변할 지 예측해 드릴게요!')
+    st.image('data/5.png', caption='이미지 캡션', width=500)
+    st.image('data/6.png', caption='이미지 캡션', width=500)
 
-
-
-    st.write("동네별 주요 연령대, 성별분포도 볼 수 있어요")

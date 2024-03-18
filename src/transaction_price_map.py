@@ -3,6 +3,7 @@ import pandas as pd
 import folium
 from folium import plugins
 from streamlit_folium import folium_static
+from folium import Popup
 """
 실거래가를 지도에 표시해 주는 페이지
 main.py에서 페이지 노출 시 price_map 호출 -> read_csv -> create_map -> 출력
@@ -31,19 +32,23 @@ def create_map(df):
         if pd.isna(location[0]) or pd.isna(location[1]):  # NaN 값을 처리
             continue
 
-        popup = f"장소: {row.단지명}\n가격: {row.price.lstrip()}"
-        m_c.add_child(folium.Marker(location, popup=popup))
+        popup_html = f"<b>단지명:</b> {row.단지명}<br><b>가격:</b> {row.price}<br><b>평수:</b>{row.평수}(㎡)<br><b>예측집값:</b> {row.예측집값}"
+        popup = Popup(popup_html, max_width=300)
+        styled_popup = folium.Popup(folium.Html(f'<div style="font-size: 12pt; font-family: Arial;">{popup_html}</div>', script=True), max_width=300)
+
+
+        m_c.add_child(folium.Marker(location, popup=styled_popup))
 
     m.add_child(m_c)
     return m
 
 
-@st.cache_resource
 def price_map():
     st.title('지도로 보는 아파트 실거래가')
     st.write('최근 1년간 발생한 거래의 가격을 볼 수 있습니다.')
     st.write('계약일자 : 2023-04-14 ~ 2024-03-14')
-    csv_file_path = 'data/output_usethis_2304_2403.xlsx'
+    st.write('어살이 제공한 예측 집값은 참고로 사용해 주세요!')
+    csv_file_path = 'data/merged_file_with_predictions_latestver.xlsx'
     df = read_csv_file(csv_file_path)
 
     m = create_map(df)
