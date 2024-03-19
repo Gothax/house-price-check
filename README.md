@@ -6,7 +6,17 @@ data by Ministry of Land, Infrastructure and Transport
 # 어살?
 어디살고싶어?
 
+### 어살의 다른점
+- 정확히 얼마에 거래 되었는지, 5년간의 데이터를 모두 볼 수 있습니다
 
+![스크린샷 2024-03-19 095815](https://github.com/Gothax/house-price-check/assets/82752784/b724aa90-56ab-4687-81c1-9c29cb401ee0)
+
+![스크린샷 2024-03-19 100316](https://github.com/Gothax/house-price-check/assets/82752784/7b07f5b1-df03-4138-8242-ae18b0c6afad)
+
+<img src="https://github.com/Gothax/house-price-check/assets/82752784/da2dfac6-4a40-4d11-9351-37c94cf8b7f9" width="400"/>
+
+
+# 기능
 - 지도상에서 볼 수 있는 최근 1년간 모든 아파트 매매의 실거래가
  ![스크린샷 2024-03-19 033504](https://github.com/Gothax/house-price-check/assets/82752784/021b5645-e8b2-494b-84d7-0ff07c1010ef)
 - 2020 ~ 2024 서울 집값 추이 (동네단위로 확인 가능) <br>
@@ -42,9 +52,38 @@ Mean Squared Error: 3252893561.6222425 <br>
 R-squared: 0.5101828861644071 <br>
 
 
+# 디렉토리
 
+```
+│  .env
+│  .gitignore
+│  LICENSE
+│  README.md
+├─src
+│  │  age_gender.py
+│  │  business_district.py
+│  │  compare_price.py
+│  │  home.py
+│  │  main.py
+│  │  predict_price.py
+│  │  transaction_price_map.py
+│  │
+│  ├─tool
+│  │      check_nan.py
+│  │      geocoding-address.py
+│  │      geocoding-api-xlver.py
+│  │      geocoding-naver-api-csv-ver.py
+│  │      get_agexl.py
+│  │      model_prediction.py
+│  │      xl_test.py
+```
+- src : 페이지구성, 기능구현<br>
 
-dependencies 업데이트 예정
+- src/tool : 데이터 전처리에 사용한 파일들<br>
+tool 주요 파일<br>
+geocoding-api-xlver (주소->경도 위도 좌표 변환 naver api 이용)<br>
+model_prediction<br> (Linear regression을 이용한 예측값 생성)
+check_nan (전처리 후 xlsx파일 검사)
 
 # 사용한 데이터
 
@@ -58,3 +97,18 @@ https://www.data.go.kr/data/3050988/fileData.do
 
 소상공인시장진흥공단_상가(상권)정보<br>
 https://www.data.go.kr/data/15083033/fileData.do
+
+# 마무리 하며
+하나의 프로젝트를 위해 4일이라는 시간은 정말 짧은 것 같다.<br>
+하지만 컴퓨터 공학과에서 습득한 가장 중요한것 중 한가지가 어떻게든 기간 안에 끝내기인 것 같고, 그 기억으로 마무리를 했다.<br>
+streamlit을 사용해 간편하게 ui를 구성하기는 했지만 기능구현, 많은 양의 데이터 전처리, ui구성까지 작업하여 욕심만큼 구현하지 못해 아쉬운 마음이 크다..<br>
+#### 아쉬운점
+- 7가지 매매 (아파트, 연다세대, 단다가구, 오피스텔, 분양권, 상업업무용, 토지) 중 아파트 데이터만 사용했다<br>
+- 구현한 기능의 융합<br>
+여러개의 페이지를 구성하기 보다는 관련된 구현 기능을 하나의 페이지에 일목요연하게 정리하고 싶었는데, 그게 쉽지 않았다.<br>
+페이지 정리를 잘 하지 못해 오히려 사용하기 불편하다고 생각이 들었고, 너무 많은 데이터로 인해 속도가 너무 느렸으며 해결하지 못한 에러가 자꾸 나서 페이지를 분할 시키는 것으로 롤백을 여러번 했다..<br>
+- 예외처리 부족<br>
+오류가 났던 부분만 처리를 해 주었다.. 사실은 전체적인 예외처리를 어떻게 해야하는 지 모르겠다. 내가 돌리다가 오류가 나서 디버깅 하고 데이터 타입을 바꾸는 부분을 추가하는 등의 방식이 아니라 오류가 발생해도 프로그램이 돌아가지만 내가 오류 메세지를 확인할 수 있도록 설계하는 것이 이상적인 방법이라고 생각했다. 이건 코드를 많이 읽어 보지 않아서 발생한 문제인 것 같다. 실력자들의 코드를 많이 읽어보자.
+#### 문제발생과 해결
+- 
+
