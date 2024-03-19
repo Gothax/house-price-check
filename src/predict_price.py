@@ -3,13 +3,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 import plotly.graph_objects as go
-
+"""
+실 거래된 가격과 예측 가격을 비교하는 페이지
+main -> predict price호출 -> load data
+데이터를 명확하게 보여주고 싶어 matplotlib대신 plotly 채택
+"""
 
 @st.cache_resource
 def load_data():
     df = pd.read_excel("data/merged_file_with_predictions_latestver.xlsx")
     return df
 
+# 한번에 같은 단지만 표시되도록 설정
+# 법정동 선택 -> 아파트 선택
 def predict_price():
     st.title('집값 예측 (Beta)')
 
@@ -37,10 +43,12 @@ def predict_price():
     fig = go.Figure()
     offset = 0.15  # 막대 사이의 간격을 조절하기 위한 오프셋
 
+    # 표시할 데이터를 하나씩 순회, 막대로 추가
     for i in range(len(filtered_df)):
         current_price = filtered_df.iloc[i]['price']
         predicted_price = filtered_df.iloc[i]['예측집값']
         percent_change = ((predicted_price - current_price) / current_price) * 100
+        # 가격이 오를거라 예측하면 빨간색, 내릴거라 예측하면 파란색
         color = 'RoyalBlue' if predicted_price < current_price else 'Crimson'
         
          # 가격 단위 변환 (만원 -> 억원)
@@ -48,7 +56,6 @@ def predict_price():
         predicted_price_fmt = f"{predicted_price // 10000}억 {predicted_price % 10000}만원" if predicted_price % 10000 != 0 else f"{predicted_price // 10000}억원"
 
         # 호버 텍스트에 변동률 포함
-        # hovertext = f"현재 가격: {current_price}<br>예측 가격: {predicted_price}<br>변동률: {'상승' if percent_change > 0 else '하락'} {abs(percent_change):.2f}%"
         hovertext = f"현재 가격: {current_price_fmt}<br>예측 가격: {predicted_price_fmt}<br>변동률: {'상승' if percent_change > 0 else '하락'} {abs(percent_change):.2f}%"
 
         fig.add_trace(go.Bar(x=[i - offset], y=[current_price], name='현재 가격', marker_color='LightSkyBlue', hovertemplate=hovertext, width=0.3))

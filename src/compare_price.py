@@ -3,17 +3,25 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as ticker
+"""
+월별 가격 비교 페이지
+main에서 compare_price호출 -> read excel -> preprocess data -> plot price by month
+"""
+
 
 @st.cache_resource
 def read_excel_file(file_path):
     df = pd.read_excel(file_path)
     return df
 
+# 월별 가격이기 때문에 계약년월 -> 계약월로 전처리
+# 전처리 후 데이터 프레임 return
 def preprocess_data(df):
     # 계약년월에서 년도를 빼고 월만 남김
     df['월'] = df['계약년월'] % 100
     return df
 
+# 그래프 표시 준비
 def plot_price_by_month(df, selected_gu):
     filtered_df = df[df['시군구'] == selected_gu]
     monthly_avg_price = filtered_df.groupby('월')['price'].mean()  # 여기서 'price'가 숫자 타입인지 확인 필요
@@ -29,6 +37,9 @@ def plot_price_by_month(df, selected_gu):
     
     st.pyplot(fig)
 
+# main에서 호출 (사이드바에서 해당 페이지를 눌렀을 때 호출)
+# 사이드바로 년, 동네 선택
+# excel 파일에서 가격의 데이터 타입이 문자열 -> int로 변환
 def compare_price():
     st.title('월별 가격 비교')
     

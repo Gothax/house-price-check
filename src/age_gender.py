@@ -2,7 +2,12 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-
+"""
+행정동구역을 기준으로 거주중인 인구수를 성별, 연령대로 구분
+그래프로 시각화
+main -> age gender 호출
+처리할 데이터가 많지 않아 캐시 처리 X
+"""
 
 def age_gender():
     # 마이너스 기호가 정상적으로 표시되도록 설정
@@ -11,13 +16,12 @@ def age_gender():
 
     df = pd.read_excel('data/compressed_data_complete.xlsx')
 
-    # 사이드바에서 동네를 선택할 수 있게 합니다.
     selected_dong = st.sidebar.selectbox('동네 선택', df['읍면동명'].astype(str).unique())
 
-    # 선택된 동네에 해당하는 데이터를 필터링합니다.
+    # 선택된 동네에 해당하는 데이터를 필터링
     filtered_data = df[df['읍면동명'] == selected_dong]
 
-    # 성별 및 연령대별 분포를 시각화합니다.
+    # 성별 및 연령대별 분포를 시각화
     fig, ax = plt.subplots(2, 1, figsize=(10, 8))
 
     # 남자 인구 분포
@@ -33,8 +37,6 @@ def age_gender():
     ax[1].set_ylabel('population')
     ax[1].legend()
 
-
-    # Streamlit을 사용하여 그래프를 표시합니다.
     st.pyplot(fig)
 
     

@@ -5,6 +5,13 @@ from streamlit_folium import folium_static
 import json
 from folium import plugins
 import random
+"""
+상권분석 페이지
+main에서 business distric호출 -> load data -> create map
+
+"""
+
+
 
 # 데이터 로딩 함수
 @st.cache_resource
@@ -15,12 +22,15 @@ def load_data(geojson_path, excel_path):
     return geojson_data, df
 
 # 지도 생성 함수
+# 행정동구역 경계값 geojson을 활용해서 경계를 표시
+# 구역당 마커 하나가 아닌 이유
+# 상권데이터의 주소 기준은 법정동, 경계값은 행정동 -> 전처리 실패
+# 대체하기 위해 실 거래가에 있는 경도, 위도를 활용해 중복을 제거후 마커 추가
 def create_map(df, seoul_geojson):
-    # 중복 위치 제거를 위한 준비
+    # 중복 위치 제거
     df['위치'] = df[['위도', '경도']].apply(tuple, axis=1)  # 위도와 경도를 튜플로 묶어 새로운 컬럼 생성
     unique_locations = df['위치'].unique()  # 유니크한 위치 정보만 추출
 
-    # 지도 생성
     m = folium.Map(location=[37.57, 126.97], zoom_start=11)
 
     # 경계구역 데이터를 지도에 추가
@@ -35,7 +45,6 @@ def create_map(df, seoul_geojson):
         }
     ).add_to(m)
 
-    # 마커 클러스터 추가
     marker_cluster = plugins.MarkerCluster().add_to(m)
 
     for location in unique_locations:
