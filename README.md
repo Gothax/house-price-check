@@ -6,6 +6,11 @@ data by Ministry of Land, Infrastructure and Transport
 # 어살?
 어디살고싶어?
 
+
+https://github.com/Gothax/house-price-check/assets/82752784/6c45f01e-d375-4ae7-b1fb-0a5173701806
+
+
+
 ### 어살의 다른점
 - 정확히 얼마에 거래 되었는지, 5년간의 데이터를 모두 볼 수 있습니다
 
